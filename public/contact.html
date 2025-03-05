@@ -14,7 +14,12 @@
 
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <form action="contact.php" method="POST">
+            <form action="https://formsubmit.co/f.calesella@gmail.com" method="POST">
+                <!-- Replace "your-email@example.com" with your actual email -->
+
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="public/thankyou.html">  <!-- Redirect after submission -->
+
                 <div class="mb-3">
                     <label for="name" class="form-label">Full Name</label>
                     <input type="text" class="form-control" id="name" name="name" required>
