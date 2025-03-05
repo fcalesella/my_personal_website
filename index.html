@@ -295,8 +295,11 @@
         document.addEventListener("DOMContentLoaded", function () {
             const sections = document.querySelectorAll("section");
             const navLinks = document.querySelectorAll(".nav-link");
+            const scrollableElements = document.querySelectorAll(".scrollable-container, .carousel-inner"); // Add all scrollable areas
             let currentIndex = 0;
             let isScrolling = false;
+            let startY = 0;
+            let endY = 0;
 
             function showSection(index) {
                 sections.forEach((section, i) => {
@@ -317,16 +320,12 @@
                 navLinks[index].classList.add("active");
             }
 
+            function isInsideScrollable(event) {
+                return [...scrollableElements].some(el => el.matches(":hover") || el.contains(event.target));
+            }
+
             function handleScroll(event) {
-                const projectContainer = document.querySelector("#projects .scrollable-container");
-
-                if (projectContainer.matches(":hover")) {
-                    // Prevent page scroll when inside the scrollable area
-                    event.stopPropagation();
-                    return;
-                }
-
-                if (isScrolling) return;
+                if (isScrolling || isInsideScrollable(event)) return;
                 isScrolling = true;
 
                 if (event.deltaY > 0) {
@@ -343,10 +342,34 @@
 
                 setTimeout(() => {
                     isScrolling = false;
-                }, 1000);
+                }, 500);
             }
 
-            function handleNavClick(event) {
+            function handleTouchStart(event) {
+                startY = event.touches[0].clientY;
+            }
+
+            function handleTouchEnd(event) {
+                if (isInsideScrollable(event)) return; // Stop page transition inside scrollable area
+
+                endY = event.changedTouches[0].clientY;
+                let diff = startY - endY;
+
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0 && currentIndex < sections.length - 1) {
+                        currentIndex++;
+                    } else if (diff < 0 && currentIndex > 0) {
+                        currentIndex--;
+                    }
+                    showSection(currentIndex);
+                }
+            }
+
+            window.addEventListener("wheel", handleScroll, { passive: false });
+            window.addEventListener("touchstart", handleTouchStart, { passive: true });
+            window.addEventListener("touchend", handleTouchEnd, { passive: true });
+
+            navLinks.forEach(link => link.addEventListener("click", function (event) {
                 event.preventDefault();
                 const targetId = this.getAttribute("href").substring(1);
                 const targetIndex = [...sections].findIndex(section => section.id === targetId);
@@ -355,10 +378,7 @@
                     currentIndex = targetIndex;
                     showSection(currentIndex);
                 }
-            }
-
-            window.addEventListener("wheel", handleScroll, { passive: false });
-            navLinks.forEach(link => link.addEventListener("click", handleNavClick));
+            }));
 
             showSection(currentIndex);
         });
