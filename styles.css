@@ -188,66 +188,141 @@ section.active {
     padding: 10px;
 }
 
-/* Section Styling */
-#timeline {
-    background: rgba(0, 0, 0, 0);
-    color: white;
-    padding: 5vh 10vw;
-    border-radius: 15px;
+
+.timeline-steps {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap
 }
 
-/* Section Title */
-.section-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 3vh;
-}
-
-/* Timeline List Styling */
-.timeline-list {
+.timeline-steps .timeline-step {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Adds space between items */
-    max-width: 900px; /* Increased width */
-    margin: 0 auto; /* Center the list */
+    position: relative;
+    margin: 1rem
 }
 
-/* Individual List Items */
-.list-group-item {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
-    border: none;
-    border-radius: 10px;
-    padding: 20px; /* More padding for a wider feel */
-    transition: all 0.3s ease-in-out;
+@media (min-width:768px) {
+    .timeline-steps .timeline-step:not(:last-child):after {
+        content: "";
+        display: block;
+        border-top: .25rem dotted #3b82f6;
+        width: 3.46rem;
+        position: absolute;
+        left: 7.5rem;
+        top: .3125rem
+    }
+    .timeline-steps .timeline-step:not(:first-child):before {
+        content: "";
+        display: block;
+        border-top: .25rem dotted #3b82f6;
+        width: 3.8125rem;
+        position: absolute;
+        right: 7.5rem;
+        top: .3125rem
+    }
 }
 
-/* Hover Effect */
-.list-group-item:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.02);
+.timeline-steps .timeline-content {
+    width: 10rem;
+    text-align: center
 }
 
-/* Timeline Dates */
-.timeline-date {
-    font-size: 1rem;
-    font-weight: bold;
-    opacity: 0.8;
+.timeline-steps .timeline-content .inner-circle {
+    border-radius: 1.5rem;
+    height: 1rem;
+    width: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #3b82f6
 }
 
-/* Small Text */
+.timeline-steps .timeline-content .inner-circle:before {
+    content: "";
+    background-color: #3b82f6;
+    display: inline-block;
+    height: 3rem;
+    width: 3rem;
+    min-width: 3rem;
+    border-radius: 6.25rem;
+    opacity: .5
+}
+
+.timeline-steps {
+    background-color: rgba(0, 0, 0, 0.5); /* Darker background with less transparency */
+    padding: 2rem;
+    border-radius: 10px; /* Optional rounded corners */
+}
+
 .text-muted {
-    font-size: 0.9rem;
-    opacity: 0.7;
+    color: white !important; /* Bootstrap's muted gray color */
 }
 
-/* Responsive - Ensures Good Layout on Smaller Screens */
-@media (max-width: 768px) {
-    .timeline-list {
-        max-width: 100%; /* Full width on smaller screens */
-    }
 
-    .list-group-item {
-        padding: 15px; /* Adjust padding for smaller devices */
-    }
+#projects .scrollable-container {
+    max-height: 70vh; /* Adjust this height as needed */
+    overflow-y: auto; /* Enables scrolling */
+    padding-right: 10px; /* Prevents scrollbar overlap */
+}
+
+/* Hide scrollbar for better aesthetics (optional) */
+#projects .scrollable-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+#projects .scrollable-container::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+#projects .scrollable-container:hover {
+    overflow-y: auto; /* Show scroll only when hovering */
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    border: none; /* Remove default border */
+    height: 300px; /* Fixed height for equal sizing */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensures title is at the top */
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.card-title {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white; /* White title */
+}
+
+.card-body {
+    flex: 1; /* Allows content to expand */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers content vertically */
+    align-items: center; /* Centers content horizontally */
+}
+
+.card-text {
+    color: white; /* White text */
+    font-size: 1rem;
+    max-width: 90%; /* Prevents text from touching edges */
+}
+
+/* Ensure buttons are in a row */
+.card-body .btn-container {
+    display: flex;
+    gap: 10px; /* Adds spacing between buttons */
+}
+
+.btn {
+    margin: 0; /* Remove margins to avoid stacking */
+    padding: 8px 15px;
+    white-space: nowrap; /* Prevents button text from breaking into multiple lines */
 }
