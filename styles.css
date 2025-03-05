@@ -1,0 +1,253 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden; /* Prevent default scrolling */
+    color: white; /* Default text color */
+}
+
+/* Fixed Background */
+.fixed-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url('assets/background.png'); /* Your background image */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: -1; /* Sends it behind content */
+}
+
+/* Content wrapper */
+.content {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+}
+
+section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Full-screen section */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 0; /* Start hidden */
+    transition: opacity 1s ease-in-out;
+}
+
+
+/* Show current section */
+section.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+/* Fully transparent overlay so background is visible */
+.overlay {
+    background: rgba(0, 0, 0, 0); /* Slight dark overlay to improve readability */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Circular profile image */
+.profile-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid white;
+}
+
+/* About Me Title Styling */
+.section-title {
+    font-size: 3vw; /* Scales with screen width */
+    color: white;
+    margin-bottom: 3vh; /* Space between title and card */
+}
+
+/* Make "Home" look like other navbar links */
+.custom-home {
+    color: rgba(255, 255, 255, 0.55); /* Default Bootstrap link color */
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease-in-out;
+    text-decoration: none; /* Remove underline */
+}
+
+/* Make the active navbar link blue */
+.navbar-nav .nav-link.active, 
+.custom-home.active {
+    color: white;
+    font-weight: bold;
+}
+
+/* About Section Styling */
+#about {
+    background: rgba(0, 0, 0, 0); /* Dark mode with transparency */
+    color: white;
+    padding: 5vh 10vw; /* Adds margin on all sides */
+    border-radius: 15px; /* Smooth rounded edges for the section */
+}
+
+/* Ensure the title is fully centered above the cards */
+.section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 4vh; /* Space between title and cards */
+    width: 100%; /* Ensures full width */
+}
+
+/* Ensure all columns have the same height */
+.row {
+    display: flex;
+    align-items: stretch; /* Ensures all cards stretch to the same height */
+}
+
+/* About Me Card Styling (Equal Height & Centered Text) */
+.about-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center text vertically */
+    align-items: center; /* Center content horizontally */
+    text-align: center; /* Center the text */
+    height: 100%; /* Ensures all cards have equal height */
+    background: rgba(255, 255, 255, 0.1); /* Light transparency */
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border effect */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
+}
+
+/* Keep the Title at the Top */
+.about-card .card-title {
+    text-align: center;
+    margin-bottom: 15px; /* Adds spacing below the title */
+    width: 100%;
+}
+
+/* Card Title */
+.card-title {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.about-card p {
+    flex-grow: 1; /* Ensures the text expands to center itself */
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Skills Section Styling */
+#skills {
+    background: rgba(0, 0, 0, 0); /* Dark mode with transparency */
+    color: white;
+    padding: 5vh 10vw; /* Adds margins on all sides */
+    border-radius: 15px;
+}
+
+/* Carousel Container - Adds Margins */
+.carousel {
+    margin: auto;
+    padding: 20px; /* Space around the carousel */
+}
+
+/* Carousel Images */
+.carousel-inner img {
+    border-radius: 15px; /* Rounded corners for a sleek look */
+    object-fit: cover; /* Ensures images scale properly */
+    max-height: 400px; /* Prevents the carousel from becoming too large */
+}
+
+/* Carousel Controls */
+.carousel-control-prev, .carousel-control-next {
+    filter: invert(100%); /* Makes the arrows visible in dark mode */
+}
+
+/* Center the Caption Text */
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.9); /* Dark overlay for better readability */
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/* Section Styling */
+#timeline {
+    background: rgba(0, 0, 0, 0);
+    color: white;
+    padding: 5vh 10vw;
+    border-radius: 15px;
+}
+
+/* Section Title */
+.section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 3vh;
+}
+
+/* Timeline List Styling */
+.timeline-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Adds space between items */
+    max-width: 900px; /* Increased width */
+    margin: 0 auto; /* Center the list */
+}
+
+/* Individual List Items */
+.list-group-item {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border: none;
+    border-radius: 10px;
+    padding: 20px; /* More padding for a wider feel */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.list-group-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.02);
+}
+
+/* Timeline Dates */
+.timeline-date {
+    font-size: 1rem;
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+/* Small Text */
+.text-muted {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* Responsive - Ensures Good Layout on Smaller Screens */
+@media (max-width: 768px) {
+    .timeline-list {
+        max-width: 100%; /* Full width on smaller screens */
+    }
+
+    .list-group-item {
+        padding: 15px; /* Adjust padding for smaller devices */
+    }
+}
