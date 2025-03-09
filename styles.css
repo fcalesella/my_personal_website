@@ -5,7 +5,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: url('assets/background.png') no-repeat center center;
+    background: url('assets/background.png') no-repeat center center fixed;
     background-size: cover;
     z-index: -1;
 }
@@ -16,20 +16,15 @@ html, body {
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow-x: hidden; /* Prevents horizontal scroll */
-    overflow-y: hidden; /* Prevents extra white space */
+    background: none !important; /* Prevents white screen */
+    overflow-x: hidden; /* Stops unwanted horizontal scroll */
 }
 
-/* 📱 Mobile Fix: Ensure Full Coverage */
+/* Mobile Fix */
 @media (max-width: 768px) {
     .fixed-background {
-        position: fixed; /* Keeps the background fixed */
-        height: 100vh; /* Ensures full screen coverage */
-        background-attachment: scroll; /* Fixes mobile rendering issues */
-    }
-
-    .content {
-        min-height: 100vh; /* Ensures sections don't cause extra space */
+        position: absolute; /* Prevents background disappearing */
+        background-attachment: scroll; /* Ensures visibility */
     }
 }
 
