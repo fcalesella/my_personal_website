@@ -306,16 +306,6 @@
             let startX = 0;
             let endX = 0;
 
-            function adjustBackgroundHeight() {
-                const background = document.querySelector(".fixed-background");
-                if (background) {
-                    background.style.height = window.innerHeight + "px";
-                }
-            }
-
-            adjustBackgroundHeight();
-            window.addEventListener("resize", adjustBackgroundHeight);
-
             function showSection(index) {
                 sections.forEach((section, i) => {
                     if (i === index) {
