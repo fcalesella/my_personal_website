@@ -4,34 +4,33 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh; /* Ensures it fills the full screen */
+    height: 100%;
     background: url('assets/background.png') no-repeat center center;
     background-size: cover;
     z-index: -1;
-
-    /* Extend background into the phone's safe area */
-    padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Prevent Body from Overriding the Background */
+/* Prevent Body from Creating Extra Space */
 html, body {
     margin: 0;
     padding: 0;
+    width: 100%;
     height: 100%;
     overflow-x: hidden;
-    overflow-y: hidden; /* Prevents extra scrolling */
+    background: none !important; /* Prevents any unwanted white background */
 }
 
-/* 📱 Mobile Fix: Ensure Full Coverage Including Safe Area */
+/* 📱 Mobile-Specific Fix */
 @media (max-width: 768px) {
     .fixed-background {
-        position: fixed; /* Keeps the background fixed */
-        height: calc(100vh + env(safe-area-inset-bottom)); /* Extends background into safe area */
-        background-attachment: scroll; /* Fixes rendering issues on iOS */
+        min-height: 100vh; /* Ensures full coverage */
+        height: 100%; /* Prevents shrinking */
+        background-attachment: scroll; /* Fixes iOS background issues */
     }
 
     .content {
-        min-height: calc(100vh + env(safe-area-inset-bottom)); /* Ensures sections don't cause extra space */
+        min-height: 100vh; /* Ensures content doesn't push down */
     }
 }
 
