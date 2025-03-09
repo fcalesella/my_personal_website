@@ -1,24 +1,32 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden; /* Prevent default scrolling */
-    color: white; /* Default text color */
-}
-
-/* Fixed Background */
+/* Full-Screen Background */
 .fixed-background {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
-    background-image: url('assets/background.png'); /* Your background image */
+    background: url('assets/background.png') no-repeat center center fixed;
     background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    z-index: -1; /* Sends it behind content */
+    z-index: -1;
 }
+
+/* Prevent Body from Overriding the Background */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: none !important; /* Prevents white screen */
+    overflow-x: hidden; /* Stops unwanted horizontal scroll */
+}
+
+/* Mobile Fix */
+@media (max-width: 768px) {
+    .fixed-background {
+        position: absolute; /* Prevents background disappearing */
+        background-attachment: scroll; /* Ensures visibility */
+    }
+}
+
 
 /* Content wrapper */
 .content {
@@ -153,6 +161,34 @@ section.active {
     text-align: center;
     font-size: 1.1rem;
     line-height: 1.6;
+}
+
+/* Make Cards Scrollable on Mobile */
+@media (max-width: 768px) {
+    #about .row-cols-lg-3 {
+        display: flex;
+        overflow-x: auto; /* Enable vertical scrolling */
+        max-height: 70vh; /* Prevent section from being too tall */
+        scroll-snap-type: y mandatory; /* Smooth scrolling effect */
+        padding-right: 10px; /* Avoid scrollbar overlap */
+    }
+
+    .about-card {
+        min-height: 60vh; /* Each card takes most of the screen */
+        scroll-snap-align: start; /* Align cards properly */
+        padding: 15px; /* Reduce padding for smaller screens */
+        font-size: 0.9rem; /* Reduce text size */
+    }
+
+    /* Hide scrollbar for aesthetics */
+    #about .row-cols-lg-3::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    #about .row-cols-lg-3::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+    }
 }
 
 /* Skills Section Styling */

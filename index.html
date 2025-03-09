@@ -111,42 +111,42 @@
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
                                         <img src="assets/data_science_and_machine_learning.jpg" class="d-block w-100" alt="Data Science">
-                                        <div class="carousel-caption d-none d-md-block">
+                                        <div class="carousel-caption">
                                             <h5>Data Science & Machine Learning</h5>
                                             <p>Expertise in developing predictive models, data preprocessing, feature engineering, and validation techniques.</p>
                                         </div>
                                     </div>
                                     <div class="carousel-item">
                                         <img src="assets/programming_and_tools.jpg" class="d-block w-100" alt="Programming">
-                                        <div class="carousel-caption d-none d-md-block">
+                                        <div class="carousel-caption">
                                             <h5>Programming & Tools</h5>
                                             <p>Proficient in Python (Pandas, NumPy, Scikit-learn, PyTorch, Keras), R, MATLAB, and visualization libraries like Matplotlib.</p>
                                         </div>
                                     </div>
                                     <div class="carousel-item">
                                         <img src="assets/statistical_analysis.jpg" class="d-block w-100" alt="Statistics">
-                                        <div class="carousel-caption d-none d-md-block">
+                                        <div class="carousel-caption">
                                             <h5>Statistical Analysis</h5>
                                             <p>Experience in statistical modeling, hypothesis testing, and analysis of large, complex datasets.</p>
                                         </div>
                                     </div>
                                     <div class="carousel-item">
                                         <img src="assets/high_performance_computing.jpg" class="d-block w-100" alt="Statistics">
-                                        <div class="carousel-caption d-none d-md-block">
+                                        <div class="carousel-caption">
                                             <h5>High-Performance Computing</h5>
                                             <p>Skilled in leveraging HPC resources for large-scale computations, parallel processing, and optimizing workflows.</p>
                                         </div>
                                     </div>
                                     <div class="carousel-item">
                                         <img src="assets/project_management.jpg" class="d-block w-100" alt="Statistics">
-                                        <div class="carousel-caption d-none d-md-block">
+                                        <div class="carousel-caption">
                                             <h5>Project Management</h5>
                                             <p>Skilled in leading multidisciplinary teams, managing timelines, and delivering results in collaborative environments.</p>
                                         </div>
                                     </div>
                                     <div class="carousel-item">
                                         <img src="assets/communication.jpg" class="d-block w-100" alt="Statistics">
-                                        <div class="carousel-caption d-none d-md-block">
+                                        <div class="carousel-caption">
                                             <h5>Communication</h5>
                                             <p>Strong ability to convey complex concepts to diverse audiences through written reports, presentations, and team interactions.</p>
                                         </div>
@@ -295,11 +295,13 @@
         document.addEventListener("DOMContentLoaded", function () {
             const sections = document.querySelectorAll("section");
             const navLinks = document.querySelectorAll(".nav-link");
-            const scrollableElements = document.querySelectorAll(".scrollable-container, .carousel-inner"); // Add all scrollable areas
+            const scrollableElements = document.querySelectorAll(".scrollable-container, .carousel-inner, #about .row-cols-lg-3, .timeline-steps"); // Add About Me horizontal scroll
             let currentIndex = 0;
             let isScrolling = false;
             let startY = 0;
             let endY = 0;
+            let startX = 0;
+            let endX = 0;
 
             function showSection(index) {
                 sections.forEach((section, i) => {
@@ -325,7 +327,7 @@
             }
 
             function handleScroll(event) {
-                if (isScrolling || isInsideScrollable(event)) return;
+                if (isScrolling || isInsideScrollable(event)) return; // Allow normal scrolling in scrollable sections
                 isScrolling = true;
 
                 if (event.deltaY > 0) {
@@ -347,18 +349,21 @@
 
             function handleTouchStart(event) {
                 startY = event.touches[0].clientY;
+                startX = event.touches[0].clientX;
             }
 
             function handleTouchEnd(event) {
-                if (isInsideScrollable(event)) return; // Stop page transition inside scrollable area
+                if (isInsideScrollable(event)) return; // Stop page transition if user is inside a scrollable section
 
                 endY = event.changedTouches[0].clientY;
-                let diff = startY - endY;
+                endX = event.changedTouches[0].clientX;
+                let diffY = startY - endY;
+                let diffX = startX - endX;
 
-                if (Math.abs(diff) > 50) {
-                    if (diff > 0 && currentIndex < sections.length - 1) {
+                if (Math.abs(diffY) > 50 && Math.abs(diffX) < 50) { // Vertical swipe
+                    if (diffY > 0 && currentIndex < sections.length - 1) {
                         currentIndex++;
-                    } else if (diff < 0 && currentIndex > 0) {
+                    } else if (diffY < 0 && currentIndex > 0) {
                         currentIndex--;
                     }
                     showSection(currentIndex);
