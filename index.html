@@ -295,7 +295,10 @@
         document.addEventListener("DOMContentLoaded", function () {
             const sections = document.querySelectorAll("section");
             const navLinks = document.querySelectorAll(".nav-link");
-            const scrollableElements = document.querySelectorAll(".scrollable-container, .carousel-inner, #about .row-cols-lg-3, .timeline-steps"); // Add About Me horizontal scroll
+            const scrollableElements = document.querySelectorAll(".scrollable-container, .carousel-inner, #about .row-cols-lg-3, .timeline-steps");
+            const navbarToggler = document.querySelector(".navbar-toggler");
+            const navbarCollapse = document.querySelector(".navbar-collapse");
+            
             let currentIndex = 0;
             let isScrolling = false;
             let startY = 0;
@@ -323,7 +326,11 @@
             }
 
             function isInsideScrollable(event) {
-                return [...scrollableElements].some(el => el.matches(":hover") || el.contains(event.target));
+                // Only apply scroll prevention on mobile (max-width: 1024px)
+                if (window.innerWidth <= 1024) {
+                    return [...scrollableElements].some(el => el.matches(":hover") || el.contains(event.target));
+                }
+                return false; // Allow normal scrolling on desktop
             }
 
             function handleScroll(event) {
@@ -383,9 +390,22 @@
                     currentIndex = targetIndex;
                     showSection(currentIndex);
                 }
+
+                // ✅ Close the navbar when clicking a menu item (for smooth navigation)
+                if (navbarCollapse.classList.contains("show")) {
+                    new bootstrap.Collapse(navbarCollapse, { toggle: true });
+                }
             }));
 
             showSection(currentIndex);
+
+            // ✅ Close navbar when clicking outside
+            document.addEventListener("click", function (event) {
+                const isClickInside = navbarCollapse.contains(event.target) || navbarToggler.contains(event.target);
+                if (!isClickInside && navbarCollapse.classList.contains("show")) {
+                    new bootstrap.Collapse(navbarCollapse, { toggle: true });
+                }
+            });
         });
     </script>
     <!-- Bootstrap JavaScript Bundle (Includes Popper.js, Required for Dropdowns) -->
