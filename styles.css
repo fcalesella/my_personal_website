@@ -164,7 +164,7 @@ section.active {
 }
 
 /* Make Cards Scrollable on Mobile */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     #about .row-cols-lg-3 {
         display: flex;
         overflow-x: auto; /* Enable vertical scrolling */
@@ -224,47 +224,76 @@ section.active {
     padding: 10px;
 }
 
+/* 📱 Mobile: Increase Carousel Height */
+@media (max-width: 1024px) {
+    #carouselExampleCaptions {
+        height: 65vh; /* Increase overall height */
+    }
 
+    .carousel-inner {
+        height: 100%; /* Ensure items fill the new height */
+    }
+
+    .carousel-item img {
+        height: 65vh; /* Adjust image height */
+        object-fit: cover; /* Ensure images scale properly */
+    }
+
+    .carousel-caption {
+        bottom: 15px; /* Adjust caption position slightly */
+    }
+}
+
+
+
+/* 🖥️ Desktop: Keep the Original Timeline Layout */
 .timeline-steps {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap
+    flex-wrap: nowrap; /* Prevent wrapping */
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    border-radius: 10px;
 }
 
+/* Timeline Steps */
 .timeline-steps .timeline-step {
     align-items: center;
     display: flex;
     flex-direction: column;
     position: relative;
-    margin: 1rem
+    margin: 1rem;
 }
 
-@media (min-width:768px) {
+/* Connector Lines */
+@media (min-width: 768px) {
     .timeline-steps .timeline-step:not(:last-child):after {
         content: "";
         display: block;
-        border-top: .25rem dotted #3b82f6;
+        border-top: 0.25rem dotted #3b82f6;
         width: 3.46rem;
         position: absolute;
         left: 7.5rem;
-        top: .3125rem
+        top: 0.3125rem;
     }
     .timeline-steps .timeline-step:not(:first-child):before {
         content: "";
         display: block;
-        border-top: .25rem dotted #3b82f6;
+        border-top: 0.25rem dotted #3b82f6;
         width: 3.8125rem;
         position: absolute;
         right: 7.5rem;
-        top: .3125rem
+        top: 0.3125rem;
     }
 }
 
+/* Timeline Content */
 .timeline-steps .timeline-content {
     width: 10rem;
-    text-align: center
+    text-align: center;
 }
 
+/* Timeline Dots */
 .timeline-steps .timeline-content .inner-circle {
     border-radius: 1.5rem;
     height: 1rem;
@@ -272,9 +301,10 @@ section.active {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: #3b82f6
+    background-color: #3b82f6;
 }
 
+/* Timeline Dot Highlight */
 .timeline-steps .timeline-content .inner-circle:before {
     content: "";
     background-color: #3b82f6;
@@ -283,13 +313,46 @@ section.active {
     width: 3rem;
     min-width: 3rem;
     border-radius: 6.25rem;
-    opacity: .5
+    opacity: 0.5;
 }
 
-.timeline-steps {
-    background-color: rgba(0, 0, 0, 0.5); /* Darker background with less transparency */
-    padding: 2rem;
-    border-radius: 10px; /* Optional rounded corners */
+/* 📱 Mobile: Enable Horizontal Scrolling but Keep Format */
+@media (max-width: 768px) {
+    .timeline-steps {
+        display: flex;
+        flex-wrap: nowrap; /* Prevent wrapping */
+        overflow-x: auto; /* Enable horizontal scrolling */
+        scroll-snap-type: x mandatory;
+        gap: 20px;
+        padding: 1rem;
+        max-width: 100vw;
+        white-space: nowrap;
+        justify-content: flex-start; /* Ensure it starts from the left */
+        scroll-padding-left: 0; /* Make sure it doesn't auto-center */
+    }
+
+    .timeline-step {
+        flex: 0 0 auto; /* Prevent shrinking */
+        min-width: 80vw; /* Each step takes up most of the screen */
+        scroll-snap-align: start; /* Align properly */
+        text-align: center;
+    }
+
+    /* Hide scrollbar for cleaner look */
+    .timeline-steps::-webkit-scrollbar {
+        display: none;
+    }
+
+    .timeline-steps .timeline-step:not(:last-child):after {
+        content: "";
+        display: block;
+        border-top: 0.25rem dotted #3b82f6;
+        width: 2rem;           /* adjust width as needed */
+        position: absolute;
+        right: -1rem;          /* adjust horizontal offset so it appears between items */
+        top: 50%;
+        transform: translateY(-50%);
+   }
 }
 
 .text-muted {
@@ -362,3 +425,41 @@ section.active {
     padding: 8px 15px;
     white-space: nowrap; /* Prevents button text from breaking into multiple lines */
 }
+
+/* 📱 Mobile: Ensure text stays inside the card */
+@media (max-width: 1024px) {
+    .card {
+        height: auto; /* Allow the card to expand based on content */
+        min-height: 250px; /* Prevents it from becoming too small */
+        padding: 15px; /* Reduce padding for better spacing */
+    }
+
+    .card-body {
+        overflow-y: auto; /* Enables scrolling if content overflows */
+        max-height: 250px; /* Prevents excessive expansion */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Ensures text aligns properly */
+    }
+
+    .card-text {
+        font-size: 0.9rem; /* Reduce font size for better fit */
+        line-height: 1.4; /* Improve readability */
+        overflow-wrap: break-word; /* Ensure words break properly */
+        word-wrap: break-word; /* Alternative for older browsers */
+    }
+
+    /* Ensure buttons do not shrink */
+    .btn-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* Reduce button padding */
+    .btn {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+    }
+}
+

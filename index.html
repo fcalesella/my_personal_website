@@ -326,11 +326,19 @@
             }
 
             function isInsideScrollable(event) {
-                // Only apply scroll prevention on mobile (max-width: 1024px)
+                const isProjectSection = document.querySelector("#projects .scrollable-container").contains(event.target);
+
+                // Prevent page scrolling inside the Projects section at all times (mobile & desktop)
+                if (isProjectSection) {
+                    return true;
+                }
+
+                // Apply scroll prevention ONLY on mobile (max-width: 1024px) for other scrollable elements
                 if (window.innerWidth <= 1024) {
                     return [...scrollableElements].some(el => el.matches(":hover") || el.contains(event.target));
                 }
-                return false; // Allow normal scrolling on desktop
+
+                return false; // Allow normal scrolling on desktop for other elements
             }
 
             function handleScroll(event) {
