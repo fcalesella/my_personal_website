@@ -8,6 +8,9 @@
     background: url('assets/background.png') no-repeat center center;
     background-size: cover;
     z-index: -1;
+
+    /* Extend background into the phone's safe area */
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* Prevent Body from Overriding the Background */
@@ -15,20 +18,20 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow-x: hidden; /* Prevents horizontal scroll */
-    overflow-y: hidden; /* Prevents extra white space */
+    overflow-x: hidden;
+    overflow-y: hidden; /* Prevents extra scrolling */
 }
 
-/* 📱 Mobile Fix: Ensure Full Coverage */
+/* 📱 Mobile Fix: Ensure Full Coverage Including Safe Area */
 @media (max-width: 768px) {
     .fixed-background {
         position: fixed; /* Keeps the background fixed */
-        height: 100vh; /* Ensures full screen coverage */
-        background-attachment: scroll; /* Fixes mobile rendering issues */
+        height: calc(100vh + env(safe-area-inset-bottom)); /* Extends background into safe area */
+        background-attachment: scroll; /* Fixes rendering issues on iOS */
     }
 
     .content {
-        min-height: 100vh; /* Ensures sections don't cause extra space */
+        min-height: calc(100vh + env(safe-area-inset-bottom)); /* Ensures sections don't cause extra space */
     }
 }
 
