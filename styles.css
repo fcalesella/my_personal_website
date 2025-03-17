@@ -67,6 +67,7 @@ section.active {
     align-items: center;
     justify-content: center;
     padding: 20px;
+    color: white;
 }
 
 /* Circular profile image */
@@ -292,6 +293,10 @@ section.active {
 .timeline-steps .timeline-content {
     width: 10rem;
     text-align: center;
+}
+
+.timeline-content p{
+    color: white;
 }
 
 /* Timeline Dots */
